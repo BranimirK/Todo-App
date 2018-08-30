@@ -1,14 +1,26 @@
 //check off specific todo by clicking
-$("li").click(function(){
+$("ul").on("click", "li", function(){
 	$(this).toggleClass("completed");
 });
 
 //click on x to delete Todo
-$("span").click(function(spanKlikEvent){
+$("ul").on("click", "span", function(spanKlikEvent){
 	$(this).parent().fadeOut(500,function(){
 		$(this).remove(); //this this refers to li
 	});
 	//stop bubbling
 	spanKlikEvent.stopPropagation();
 
+});
+
+$("input[type='text']").keypress(function(keyEvent){
+	if(keyEvent.which ===13){
+		//grab a new todo text from input
+		var todoText = $(this).val();
+		//create and add a new li
+		$("ul").prepend("<li><span>X</span> " +todoText +"</ul>")
+		//delete text in input box
+		$(this).val("");
+
+	}
 });
